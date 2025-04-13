@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f2f2; margin: 0; padding: 0; }
+    #chatBtn { margin: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    #chatbox {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #messages { flex: 1; padding: 10px; overflow-y: auto; }
+    .msg { margin: 5px 0; padding: 8px; border-radius: 5px; }
+    .user { background: #DCF8C6; align-self: flex-end; }
+    .bot { background: #eee; align-self: flex-start; }
+    #inputArea { display: flex; padding: 10px; border-top: 1px solid #ccc; }
+    #userInput { flex: 1; padding: 8px; }
+    #sendBtn { padding: 8px 12px; }
+  </style>
+</head>
+<body>
+
+<button id="chatBtn">Open AI Chatbot</button>
+
+<div id="chatbox">
+  <div id="messages"></div>
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="Ask me anything..." />
+    <button id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script>
+  const API_KEY = "YOUR_OPENAI_API_KEY"; // ← Replace this with your OpenAI key
+
+  const chatBtn = document.getElementById("chatBtn");
+  const chatbox = document.getElementById("chatbox");
+  const messages = document.getElementById("messages");
+  const userInput = document.getElementById("userInput");
+  const sendBtn = document.getElementById("sendBtn");
+
+  chatBtn.onclick = () => {
+    chatbox.style.display = chatbox.style.display === "none" ? "flex" : "none";
+  };
+
+  sendBtn.onclick = async () => {
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    addMessage("user", text);
+    userInput.value = "";
+
+    const reply = await getAIResponse(text);
+    addMessage("bot", reply);
+  };
+
+  function addMessage(role, text) {
+    const msg = document.createElement("div");
+    msg.className = `msg ${role}`;
+    msg.textContent = text;
+    messages.appendChild(msg);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  async function getAIResponse(prompt) {
+    try {
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: prompt }]
+        })
+      });
+
+      const data = await response.json();
+      return data.choices[0].message.content.trim();
+    } catch (err) {
+      console.error(err);
+      return "Oops! Something went wrong.";
+    }
+  }
+</script>
+
+</body>
+</html>

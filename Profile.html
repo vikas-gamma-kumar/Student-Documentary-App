@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .info-container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #c9d6ff;
+      margin-bottom: 10px;
+    }
+
+    .upload-label {
+      background-color: #c9d6ff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: blueviolet;
+      margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .info-container div {
+      font-size: 1.1rem;
+      color: #222;
+      width: 100%;
+    }
+
+    span {
+      font-weight: 600;
+      color: black;
+    }
+
+    button {
+      color: blueviolet;
+      background-color: #c9d6ff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      
+      color: blue;
+   
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .info-container {
+        padding: 20px;
+      }
+
+      .info-container div {
+        font-size: 1rem;
+      }
+
+      button {
+        font-size: 0.95rem;
+        padding: 8px 16px;
+        
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .info-container {
+        padding: 15px;
+      }
+
+      .info-container div {
+        font-size: 0.95rem;
+      }
+
+      span {
+        font-size: 1rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+      }
+
+      .upload-label {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+      }
+    }
+  </style>
+  <script type="module" src="./homepage.js"></script>
+</head>
+
+<body>
+  <h1>Profile</h1>
+  <div class="info-container">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+      alt="Profile Photo"
+      id="profileImage"
+      class="profile-photo"
+    >
+    <!-- <label for="photoUpload" class="upload-label">Upload Profile Photo</label>
+    <input type="file" id="photoUpload" accept="image/*"> -->
+
+    <div>First Name: <span id="loggedUserFName"></span></div>
+    <div>Last Name: <span id="loggedUserLName"></span></div>
+    <div>Adhaar Number: <span id="loggedUseradhar"></span></div>
+    <div>Email: <span id="loggedUserEmail"></span></div>
+
+    <button id="logout">Logout</button>
+
+    <a href="homepage.html">
+        <button style="background-color: #6c63ff; color: white;">Back to Dashboard</button>
+      </a>
+  </div>
+
+
+
+
+
+
+
+  <script>
+    const photoInput = document.getElementById('photoUpload');
+    const profileImage = document.getElementById('profileImage');
+  
+    // Load image from localStorage when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      const storedImage = localStorage.getItem('profilePhoto');
+      if (storedImage) {
+        profileImage.src = storedImage;
+      }
+    });
+  
+    // Save new image to localStorage on upload
+    photoInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imgData = e.target.result;
+          profileImage.src = imgData;
+          localStorage.setItem('profilePhoto', imgData); // Save to localStorage
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+  
+</body>
+
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #dfe9f3, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dashboard-container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #6c63ff;
+      margin-bottom: 15px;
+    }
+
+    .welcome {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      background-color: #6c63ff;
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .option-btn:hover {
+      background-color: #4b45c4;
+    }
+
+    #logout {
+      background-color: #ff4b4b;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    #logout:hover {
+      background-color: #c0392b;
+    }
+
+    @media (max-width: 500px) {
+      .dashboard-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .option-btn,
+      #logout {
+        font-size: 1rem;
+        padding: 12px;
+      }
+    }
+  </style>
+  <script type="module" src="./homepage.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <img id="profileImage" class="profile-photo" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Profile Photo">
+    <div class="welcome">Welcome Student...</div>
+
+
+    <h1>Dashboard</h1>
+    <a href="Profile.html" class="option-btn">👤 Profile</a>
+    <a href="documents.html" class="option-btn">📄 Documents</a>
+    <a href="erp.html" class="option-btn">📊 Student ERP</a>
+    <a href="https://b243092290cd4f218dc452e083ab7d22.elf.site" class="option-btn">📊 Chat with Us</a> <!-- New Button -->
+    <button id="logout">🚪 Logout</button>
+  </div>
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const storedImage = localStorage.getItem('profilePhoto');
+      if (storedImage) {
+        document.getElementById('profileImage').src = storedImage;
+      }
+    });
+
+
+    document.getElementById('logout').addEventListener('click', () => {
+      localStorage.removeItem('loggedUserFName');
+      localStorage.removeItem('loggedUserLName');
+      localStorage.removeItem('loggedUserEmail');
+      localStorage.removeItem('loggedUseradhar');
+      localStorage.removeItem('profilePhoto');
+      window.location.href = 'index.html'; 
+    });
+  </script>
+
+
+
+
+
+
+
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-b2430922-90cd-4f21-8dc4-52e083ab7d22" data-elfsight-app-lazy></div>
+</body>
+
+</html>

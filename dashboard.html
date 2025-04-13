@@ -1,0 +1,120 @@
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #4285f4;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .welcome {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      flex: 1 1 200px;
+      padding: 20px;
+      background-color: #e3f2fd;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .logout-btn {
+      margin-top: 40px;
+      padding: 12px 25px;
+      background-color: #e53935;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>User Dashboard</header>
+
+  <div class="container">
+    <div class="welcome" id="welcome-message">Welcome!</div>
+
+    <div class="options">
+      <div class="card" onclick="alert('Open your profile!')">
+        👤 View Profile
+      </div>
+      <div class="card" onclick="alert('Access your saved documents!')">
+        📄 My Documents
+      </div>
+      <div class="card" onclick="alert('Adjust your settings!')">
+        ⚙️ Settings
+      </div>
+      <div class="card" onclick="alert('More features coming soon!')">
+        📊 Analytics
+      </div>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+  </div>
+
+  <script>
+    const firstName = sessionStorage.getItem("firstName");
+    if (firstName) {
+      document.getElementById("welcome-message").textContent = `Welcome, ${firstName}!`;
+    } else {
+    
+      window.location.href = "google.html";
+    }
+
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = "google.html";
+    }
+  </script>
+
+</body>
+</html> -->

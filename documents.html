@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document Manager</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-weight: 700;
+    }
+
+    .upload-section input[type="file"] {
+      padding: 5px;
+      margin-left: 70px;
+    }
+
+    .upload-section button {
+      background-color: #6c63ff;
+      color: #fff;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .upload-section button:hover {
+      background-color: #4b45c4;
+    }
+
+    #savedDocumentsContainer {
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 30px;
+    }
+
+    .document-item {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 15px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .document-info {
+      max-width: 80%;
+      background-color: #6c63ff;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 12px;
+      color: white;
+    }
+
+    .document-info strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .delete-btn {
+      background-color: #ff4b4b;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: #cc0000;
+    }
+
+    @media (max-width: 500px) {
+      .document-info {
+        max-width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .document-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .dashboard-btn-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .dashboard-btn {
+      background-color: #6c63ff;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+      display: inline-block;
+    }
+
+    .dashboard-btn:hover {
+      background-color: #584ee1;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(108, 99, 255, 0.4);
+    }
+   </style>
+</head>
+
+<body>
+  <h1 style="text-align:center;">Document Manager</h1>
+
+  <div class="upload-section">
+    <label for="saveDocument">Upload Document:</label>
+    <input type="file" id="saveDocument" />
+    <button id="saveDocBtn">Save</button>
+  </div>
+
+  <div id="savedDocumentsContainer">
+    <h2 style="text-align:center;">Saved Documents</h2>
+  </div>
+
+  <div class="dashboard-btn-container">
+    <a href="homepage.html" class="dashboard-btn">Go to Dashboard</a>
+  </div>
+
+   <!-- <script>
+    function loadSavedDocuments() {
+      const saved = JSON.parse(localStorage.getItem('savedDocs') || '[]');
+      const container = document.getElementById('savedDocumentsContainer');
+      container.innerHTML = "<h2 style='text-align:center;'>Saved Documents</h2>";
+
+      saved.forEach((doc, index) => {
+        const docStrip = document.createElement('div');
+        docStrip.className = 'document-item';
+
+        docStrip.innerHTML = `
+          <div class="document-info">
+            <strong>📄 ${doc.name}</strong>
+            <small>Saved on: ${doc.timestamp}</small>
+          </div>
+          <button class="delete-btn" data-index="${index}">Delete</button>
+        `;
+
+        docStrip.querySelector('.document-info').addEventListener('click', () => {
+          const newWindow = window.open();
+          newWindow.document.write(`
+            <iframe src="${doc.data}" frameborder="0" style="width:100%;height:100%;"></iframe>
+          `);
+        });
+
+        docStrip.querySelector('.delete-btn').addEventListener('click', (e) => {
+          const idx = e.target.dataset.index;
+          const updated = JSON.parse(localStorage.getItem('savedDocs') || '[]');
+          updated.splice(idx, 1);
+          localStorage.setItem('savedDocs', JSON.stringify(updated));
+          loadSavedDocuments();
+        });
+
+        container.appendChild(docStrip);
+      });
+    }
+
+    document.getElementById('saveDocBtn').addEventListener('click', function () {
+      const fileInput = document.getElementById('saveDocument');
+
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const fileData = e.target.result;
+          const now = new Date();
+          const formattedDateTime = now.toLocaleString();
+
+          const saved = JSON.parse(localStorage.getItem('savedDocs') || '[]');
+          saved.push({
+            name: file.name,
+            timestamp: formattedDateTime,
+            data: fileData 
+          });
+
+          localStorage.setItem('savedDocs', JSON.stringify(saved));
+          fileInput.value = '';
+          loadSavedDocuments();
+        };
+
+        reader.readAsDataURL(file); 
+      } else {
+        alert("Please select a document to save.");
+      }
+    });
+
+    window.addEventListener('load', loadSavedDocuments);
+  </script>  -->
+
+
+
+
+  <script>
+    // Get the current logged-in user's ID from localStorage
+    let currentUserId = localStorage.getItem('loggedInUserId');
+  
+    // Redirect to login page if user is not logged in
+    if (!currentUserId) {
+      alert("You are not logged in!");
+      window.location.href = "index.html";
+    }
+  
+    // Unique key for storing user-specific documents
+    const userKey = `savedDocs_${currentUserId}`;
+  
+    function loadSavedDocuments() {
+      const saved = JSON.parse(localStorage.getItem(userKey) || '[]');
+      const container = document.getElementById('savedDocumentsContainer');
+      container.innerHTML = "<h2 style='text-align:center;'>Saved Documents</h2>";
+  
+      saved.forEach((doc, index) => {
+        const docStrip = document.createElement('div');
+        docStrip.className = 'document-item';
+  
+        docStrip.innerHTML = `
+          <div class="document-info">
+            <strong>📄 ${doc.name}</strong>
+            <small>Saved on: ${doc.timestamp}</small>
+          </div>
+          <button class="delete-btn" data-index="${index}">Delete</button>
+        `;
+  
+        // Open the document in a new tab
+        docStrip.querySelector('.document-info').addEventListener('click', () => {
+          const newWindow = window.open();
+          newWindow.document.write(`
+            <iframe src="${doc.data}" frameborder="0" style="width:100%;height:100%;"></iframe>
+          `);
+        });
+  
+        // Delete document
+        docStrip.querySelector('.delete-btn').addEventListener('click', (e) => {
+          const idx = e.target.dataset.index;
+          const updated = JSON.parse(localStorage.getItem(userKey) || '[]');
+          updated.splice(idx, 1);
+          localStorage.setItem(userKey, JSON.stringify(updated));
+          loadSavedDocuments();
+        });
+  
+        container.appendChild(docStrip);
+      });
+    }
+  
+    // Save new document
+    document.getElementById('saveDocBtn').addEventListener('click', function () {
+      const fileInput = document.getElementById('saveDocument');
+  
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+  
+        reader.onload = function (e) {
+          const fileData = e.target.result;
+          const now = new Date();
+          const formattedDateTime = now.toLocaleString();
+  
+          const saved = JSON.parse(localStorage.getItem(userKey) || '[]');
+          saved.push({
+            name: file.name,
+            timestamp: formattedDateTime,
+            data: fileData
+          });
+  
+          localStorage.setItem(userKey, JSON.stringify(saved));
+          fileInput.value = '';
+          loadSavedDocuments();
+        };
+  
+        reader.readAsDataURL(file);
+      } else {
+        alert("Please select a document to save.");
+      }
+    });
+  
+    // Load documents when the page is ready
+    window.addEventListener('load', loadSavedDocuments);
+  </script>
+  
+
+
+
+
+
+</body>
+
+</html>

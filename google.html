@@ -1,0 +1,108 @@
+<!-- 
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Sign-In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <h2>Sign in with Google</h2>
+
+  
+  <div id="g_id_onload"
+       data-client_id="151536783711-up2i5igmhbbjaqko5rdh51ms3l25uq3a.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+
+  <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-shape="rectangular">
+  </div>
+
+  <script>
+    function handleCredentialResponse(response) {
+      const user = parseJwt(response.credential);
+      const firstName = user.given_name;
+
+      
+      sessionStorage.setItem("firstName", firstName);
+
+      
+      window.location.href = "dashboard.html";
+    }
+
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return JSON.parse(jsonPayload);
+    }
+  </script>
+</body>
+</html>   -->
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Sign-In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <h2>Sign in with Google</h2>
+
+  
+  <div id="g_id_onload"
+       data-client_id="151536783711-up2i5igmhbbjaqko5rdh51ms3l25uq3a.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+
+  <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-shape="rectangular">
+  </div>
+
+  <script>
+    function handleCredentialResponse(response) {
+      const user = parseJwt(response.credential);
+      const firstName = user.given_name;
+
+      
+      sessionStorage.setItem("firstName", firstName);
+
+    
+      window.location.href = "Homepage.html";
+    }
+
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return JSON.parse(jsonPayload);
+    }
+  </script>
+</body>
+</html> -->
